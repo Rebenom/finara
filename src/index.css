@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #15121E;
+  --color-cream: #F8F3E6;
+  --color-lime: #D2F25F;
+  --color-sky: #A9D9FF;
+  --color-lilac: #C4B2FF;
+  --color-peach: #FFBE9A;
+  --color-butter: #FFD84D;
+  --color-coral: #FF6B4A;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html,
+  body {
+    background-color: #F8F3E6;
+    color: #15121E;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  button:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.font-display-num {
+  font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.font-display-heading {
+  font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-card-container {
+  container-type: inline-size;
+}
+
+.metric-num-hero {
+  font-size: clamp(40px, 15cqw, 72px);
+  white-space: nowrap;
+}
+
+.metric-num-card {
+  font-size: clamp(26px, 18cqw, 44px);
+  white-space: nowrap;
+}
+
+.neo-card {
+  border-radius: 20px;
+  border: 2px solid #15121E;
+}
+
+.neo-card-hero {
+  border-radius: 20px;
+  border: 2px solid #15121E;
+  box-shadow: 4px 4px 0px #15121E;
+}
+
+.neo-card-interactive {
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neo-card-interactive:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #15121E;
+}
+
+.neo-card-interactive:active {
+  transform: translate(0px, 0px);
+  box-shadow: 2px 2px 0px #15121E;
+}
+
+.neo-chip {
+  border-radius: 9999px;
+  border: 1.5px solid #15121E;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.neo-sticker {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #15121E;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .neo-sticker,
+.neo-sticker:hover {
+  transform: rotate(0deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neo-card-interactive,
+  .neo-sticker {
+    transition: none;
+  }
+  .neo-card-interactive:hover {
+    transform: none;
+  }
+}
