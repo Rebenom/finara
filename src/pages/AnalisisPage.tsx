@@ -27,36 +27,27 @@ export const AnalisisPage: React.FC<AnalisisPageProps> = ({ onOpenAddTransaction
 
   return (
     <div className="space-y-6">
-      {/* Preview Switch Bar */}
-      <div className="neo-card bg-white px-6 py-4 flex items-center justify-between gap-4">
-        <div>
-          <p className="text-[14px] font-bold text-[#15121E]">
-            Mode tampilan analisis
-          </p>
-          <p className="text-[12px] text-[#15121E]/75">
-            Uji tampilan saat riwayat transaksi belum mencukupi untuk membuat perkiraan.
-          </p>
-        </div>
+      {/* Compact Demo Mode Switch Bar (max 44px height) */}
+      <div className="h-[44px] max-h-[44px] rounded-[14px] border-2 border-[#15121E] bg-white px-4 flex items-center justify-between gap-4">
+        <span className="text-[13px] font-bold text-[#15121E]">Mode demo</span>
 
         <button
           type="button"
           role="switch"
           aria-checked={insufficientPreview}
           onClick={() => setInsufficientPreview((v) => !v)}
-          className={`inline-flex items-center gap-3 rounded-full border-2 border-[#15121E] px-4 py-2 text-[13px] font-bold transition-colors whitespace-nowrap shrink-0 ${
-            insufficientPreview ? 'bg-[#C4B2FF]' : 'bg-[#F8F3E6]'
-          }`}
+          className="inline-flex items-center gap-2.5 text-[12px] font-semibold text-[#15121E] whitespace-nowrap shrink-0"
         >
           <span>Pratinjau: data belum cukup</span>
           <span
             aria-hidden="true"
-            className={`w-10 h-5 rounded-full border-[1.5px] border-[#15121E] p-0.5 flex items-center transition-colors ${
-              insufficientPreview ? 'bg-[#15121E] justify-end' : 'bg-white justify-start'
+            className={`w-9 h-5 rounded-full border-[1.5px] border-[#15121E] p-0.5 flex items-center transition-colors ${
+              insufficientPreview ? 'bg-[#15121E] justify-end' : 'bg-[#F8F3E6] justify-start'
             }`}
           >
             <span
               className={`w-3.5 h-3.5 rounded-full ${
-                insufficientPreview ? 'bg-[#D2F25F]' : 'bg-[#15121E]'
+                insufficientPreview ? 'bg-white' : 'bg-[#15121E]'
               }`}
             />
           </span>
@@ -177,10 +168,10 @@ export const AnalisisPage: React.FC<AnalisisPageProps> = ({ onOpenAddTransaction
 
             <div className="mt-6 pt-4 border-t-2 border-[#15121E]/15">
               <p className="text-[13px] font-bold text-[#15121E] mb-2">Ciri pola bulan ini</p>
-              <ul className="space-y-2 text-[13px] text-[#15121E]/85">
+              <ul className="list-disc pl-5 space-y-2 text-[13px] text-[#15121E]/85">
                 {PATTERN_SUMMARY.characteristics.map((item) => (
                   <li key={item} className="leading-snug">
-                    • {item}
+                    {item}
                   </li>
                 ))}
               </ul>

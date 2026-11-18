@@ -19,26 +19,26 @@ export const TabunganPage: React.FC<TabunganPageProps> = ({ onOpenAddDeposit }) 
           <div className="flex items-center gap-4">
             <CategorySticker category="laptop" />
             <div>
-              <div className="flex items-center gap-2.5 mb-1">
-                <h2 className="font-display-heading text-[26px] font-extrabold text-[#15121E]">
-                  Target tabungan: {SAVINGS_GOAL.title}
-                </h2>
-                <ResultMarker variant="perhitungan" />
-              </div>
+              <h2 className="font-display-heading text-[26px] font-extrabold text-[#15121E] mb-0.5">
+                {SAVINGS_GOAL.title}
+              </h2>
               <p className="text-[14px] font-medium text-[#15121E]/85">
                 Tenggat {SAVINGS_GOAL.deadlineLabel} · Sisa kebutuhan {formatRupiah(remainingTarget)}
               </p>
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={onOpenAddDeposit}
-            className="inline-flex items-center gap-2 rounded-full border-2 border-[#15121E] bg-[#15121E] px-5 py-2.5 text-[13px] font-bold text-[#F8F3E6] whitespace-nowrap shrink-0 hover:shadow-[3px_3px_0_#FFFFFF] transition-shadow"
-          >
-            <Plus size={16} strokeWidth={2.5} />
-            <span>Catat setoran</span>
-          </button>
+          <div className="flex flex-col items-end gap-2.5 shrink-0">
+            <ResultMarker variant="perhitungan" />
+            <button
+              type="button"
+              onClick={onOpenAddDeposit}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#15121E] bg-[#15121E] px-5 py-2.5 text-[13px] font-bold text-[#F8F3E6] whitespace-nowrap shrink-0 hover:shadow-[3px_3px_0_#FFFFFF] transition-shadow"
+            >
+              <Plus size={16} strokeWidth={2.5} />
+              <span>Catat setoran</span>
+            </button>
+          </div>
         </div>
 
         {/* Big Progress */}
@@ -118,7 +118,7 @@ export const TabunganPage: React.FC<TabunganPageProps> = ({ onOpenAddDeposit }) 
           <h2 className="font-display-heading text-[20px] font-extrabold text-[#15121E]">
             Tiga alternatif menutup kekurangan Rp200.000/bulan
           </h2>
-          <ResultMarker variant="rekomendasi" label="Opsi keputusan" />
+          <ResultMarker variant="rekomendasi" />
         </div>
 
         <div className="grid grid-cols-3 gap-6">
@@ -131,7 +131,7 @@ export const TabunganPage: React.FC<TabunganPageProps> = ({ onOpenAddDeposit }) 
                 <h3 className="font-display-heading text-[18px] font-bold text-[#15121E] mb-1.5">
                   {alt.title}
                 </h3>
-                <p className="font-display-num text-[24px] font-extrabold text-[#15121E] mb-3">
+                <p className="font-display-num text-[32px] leading-[1.15] font-extrabold text-[#15121E] mb-3">
                   {alt.valueLabel}
                 </p>
               </div>

@@ -56,9 +56,7 @@ export default function App() {
           />
 
           {activePage === 'dashboard' && <DashboardPage onNavigate={handleNavigate} />}
-          {activePage === 'transaksi' && (
-            <TransaksiPage onOpenAddTransaction={openAddTransaction} />
-          )}
+          {activePage === 'transaksi' && <TransaksiPage />}
           {activePage === 'anggaran' && <AnggaranPage />}
           {activePage === 'tabungan' && (
             <TabunganPage onOpenAddDeposit={() => openAddTransaction('Tabungan Laptop')} />

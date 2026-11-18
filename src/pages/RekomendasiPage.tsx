@@ -59,7 +59,7 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
               onClick={() => setPriorityFilter(opt.id)}
               className={`rounded-full border-[1.5px] border-[#15121E] px-4 py-1.5 text-[13px] font-semibold transition-colors whitespace-nowrap ${
                 priorityFilter === opt.id
-                  ? 'bg-[#15121E] text-[#D2F25F]'
+                  ? 'bg-[#15121E] text-[#F8F3E6]'
                   : 'bg-white text-[#15121E] hover:bg-[#F8F3E6]'
               }`}
             >
@@ -73,12 +73,16 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
           role="switch"
           aria-checked={aiExplanationEnabled}
           onClick={() => onToggleAiExplanation(!aiExplanationEnabled)}
-          className={`inline-flex items-center gap-3 rounded-full border-2 border-[#15121E] px-4 py-1.5 text-[13px] font-bold transition-colors whitespace-nowrap ${
-            aiExplanationEnabled ? 'bg-[#D2F25F]' : 'bg-white'
-          }`}
+          className="inline-flex items-center gap-3 rounded-full border-2 border-[#15121E] bg-white px-4 py-1.5 text-[13px] font-bold text-[#15121E] hover:bg-[#F8F3E6] transition-colors whitespace-nowrap"
         >
           <span>Panel Penjelasan AI</span>
-          <span className="font-mono text-[11px] uppercase">
+          <span
+            className={`rounded-full border border-[#15121E] px-2 py-0.5 font-mono text-[11px] uppercase ${
+              aiExplanationEnabled
+                ? 'bg-[#15121E] text-[#F8F3E6]'
+                : 'bg-[#F8F3E6] text-[#15121E]'
+            }`}
+          >
             {aiExplanationEnabled ? 'Aktif' : 'Nonaktif'}
           </span>
         </button>
@@ -99,11 +103,11 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
             return (
               <article
                 key={rec.id}
-                className={`neo-card p-6 transition-opacity ${
+                className={`neo-card p-6 transition-all ${
                   status === 'diabaikan'
                     ? 'bg-[#F8F3E6] opacity-70'
                     : status === 'selesai'
-                    ? 'bg-[#D2F25F]/45'
+                    ? 'bg-[#D2F25F]/70 opacity-80'
                     : 'bg-white'
                 }`}
               >
@@ -130,21 +134,30 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
                       </span>
                     </span>
 
-                    <ResultMarker
-                      variant={rec.resultType === 'Perkiraan baseline' ? 'baseline' : 'perhitungan'}
-                      label={rec.resultType}
-                    />
+                    {status === 'selesai' && (
+                      <span className="neo-chip inline-flex items-center gap-1.5 bg-[#D2F25F] text-[#15121E] px-3 py-1 whitespace-nowrap">
+                        <Check size={13} strokeWidth={2.5} aria-hidden="true" />
+                        <span>Sudah dilakukan</span>
+                      </span>
+                    )}
 
-                    {status !== 'aktif' && (
-                      <span className="neo-chip bg-[#15121E] text-[#D2F25F] px-3 py-1">
-                        {status === 'selesai' ? 'Sudah dilakukan' : 'Diabaikan'}
+                    {status === 'diabaikan' && (
+                      <span className="neo-chip inline-flex items-center gap-1.5 bg-white text-[#15121E] px-3 py-1 whitespace-nowrap">
+                        <EyeOff size={13} strokeWidth={2.25} aria-hidden="true" />
+                        <span>Diabaikan</span>
                       </span>
                     )}
                   </div>
 
-                  <span className="font-mono text-[12px] font-semibold text-[#15121E]/75">
-                    {rec.ruleCode}
-                  </span>
+                  <div className="flex items-center gap-2.5 shrink-0">
+                    <ResultMarker
+                      variant={rec.resultType === 'Perkiraan baseline' ? 'baseline' : 'perhitungan'}
+                      label={rec.resultType}
+                    />
+                    <span className="font-mono text-[12px] font-semibold text-[#15121E]/75">
+                      {rec.ruleCode}
+                    </span>
+                  </div>
                 </div>
 
                 <h2 className="font-display-heading text-[20px] font-bold text-[#15121E] mb-1.5">
@@ -177,15 +190,15 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
                         <button
                           type="button"
                           onClick={() => setItemStatus(rec.id, 'selesai')}
-                          className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#15121E] bg-[#D2F25F] px-3.5 py-1.5 text-[12px] font-bold text-[#15121E] hover:shadow-[2px_2px_0_#15121E]"
+                          className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#15121E] bg-white px-3.5 py-1.5 text-[13px] font-semibold text-[#15121E] hover:bg-[#F8F3E6] transition-colors"
                         >
-                          <Check size={14} strokeWidth={2.5} />
+                          <Check size={14} strokeWidth={2.25} />
                           <span>Sudah dilakukan</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => setItemStatus(rec.id, 'diabaikan')}
-                          className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#15121E] bg-white px-3.5 py-1.5 text-[12px] font-semibold text-[#15121E] hover:bg-[#F8F3E6]"
+                          className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#15121E] bg-white px-3.5 py-1.5 text-[13px] font-semibold text-[#15121E] hover:bg-[#F8F3E6] transition-colors"
                         >
                           <EyeOff size={14} strokeWidth={2.25} />
                           <span>Abaikan</span>
@@ -195,7 +208,7 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
                       <button
                         type="button"
                         onClick={() => setItemStatus(rec.id, 'aktif')}
-                        className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#15121E] bg-white px-3.5 py-1.5 text-[12px] font-semibold text-[#15121E] hover:bg-[#F8F3E6]"
+                        className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#15121E] bg-white px-3.5 py-1.5 text-[13px] font-semibold text-[#15121E] hover:bg-[#F8F3E6] transition-colors"
                       >
                         <RotateCcw size={13} strokeWidth={2.25} />
                         <span>Pulihkan</span>
@@ -243,7 +256,7 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
                   <h2 className="font-display-heading text-[18px] font-bold text-[#15121E]">
                     Penjelasan AI
                   </h2>
-                  <p className="text-[12px] text-[#15121E]/70">
+                  <p className="text-[13px] text-[#15121E]/70">
                     Ringkasan statis berbasis angka terhitung
                   </p>
                 </div>
@@ -256,7 +269,7 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
                   <p className="font-mono text-[11px] font-bold text-[#15121E]/75 mb-1">
                     {rec.ruleCode} · {rec.categoryLabel}
                   </p>
-                  <p className="text-[13px] text-[#15121E] leading-relaxed">
+                  <p className="text-[14px] text-[#15121E] leading-relaxed">
                     {rec.aiExplanation}
                   </p>
                 </div>

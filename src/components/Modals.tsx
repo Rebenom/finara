@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
+import { CustomSelect } from './CustomSelect';
+
+const MODAL_CATEGORY_OPTIONS = [
+  { value: 'Makan dan minum', label: 'Makan dan minum' },
+  { value: 'Transportasi', label: 'Transportasi' },
+  { value: 'Keperluan kuliah', label: 'Keperluan kuliah' },
+  { value: 'Hiburan dan jajan', label: 'Hiburan dan jajan' },
+  { value: 'Cicilan ponsel', label: 'Cicilan ponsel' },
+  { value: 'Tabungan Laptop', label: 'Tabungan Laptop' },
+  { value: 'Uang saku / honor', label: 'Uang saku / honor' },
+];
 
 interface AddTransactionModalProps {
   isOpen: boolean;
@@ -56,7 +67,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
             type="button"
             onClick={onClose}
             aria-label="Tutup dialog catat transaksi"
-            className="w-9 h-9 rounded-full border-[1.5px] border-[#15121E] bg-[#F8F3E6] flex items-center justify-center hover:bg-[#D2F25F] transition-colors"
+            className="w-9 h-9 rounded-full border-[1.5px] border-[#15121E] bg-[#F8F3E6] flex items-center justify-center hover:bg-white transition-colors"
           >
             <X size={18} strokeWidth={2.25} />
           </button>
@@ -82,7 +93,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
                   onClick={() => setJenis(opt.id)}
                   className={`rounded-full border-[1.5px] border-[#15121E] px-3 py-2 text-[13px] font-semibold transition-colors ${
                     jenis === opt.id
-                      ? 'bg-[#15121E] text-[#D2F25F]'
+                      ? 'bg-[#15121E] text-[#F8F3E6]'
                       : 'bg-[#F8F3E6] text-[#15121E] hover:bg-white'
                   }`}
                 >
@@ -136,26 +147,21 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
 
           {/* Kategori */}
           <div>
-            <label
-              htmlFor="tx-category"
+            <span
+              id="tx-category-label"
               className="block text-[13px] font-semibold text-[#15121E] mb-1.5"
             >
               Kategori
-            </label>
-            <select
+            </span>
+            <CustomSelect
               id="tx-category"
+              ariaLabelledBy="tx-category-label"
               value={kategori}
-              onChange={(e) => setKategori(e.target.value)}
-              className="w-full rounded-[12px] border-2 border-[#15121E] bg-[#F8F3E6] px-3.5 py-2 text-[14px] font-medium text-[#15121E]"
-            >
-              <option value="Makan dan minum">Makan dan minum</option>
-              <option value="Transportasi">Transportasi</option>
-              <option value="Keperluan kuliah">Keperluan kuliah</option>
-              <option value="Hiburan dan jajan">Hiburan dan jajan</option>
-              <option value="Cicilan ponsel">Cicilan ponsel</option>
-              <option value="Tabungan Laptop">Tabungan Laptop</option>
-              <option value="Uang saku / honor">Uang saku / honor</option>
-            </select>
+              options={MODAL_CATEGORY_OPTIONS}
+              onChange={setKategori}
+              bgClass="bg-[#F8F3E6]"
+              className="w-full"
+            />
           </div>
 
           {/* Keterangan */}
@@ -192,7 +198,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
             </button>
             <button
               type="submit"
-              className="rounded-full border-2 border-[#15121E] bg-[#15121E] px-5 py-2 text-[13px] font-bold text-[#F8F3E6] hover:bg-[#D2F25F] hover:text-[#15121E] transition-colors"
+              className="rounded-full border-2 border-[#15121E] bg-[#15121E] px-5 py-2 text-[13px] font-bold text-[#F8F3E6] hover:shadow-[3px_3px_0_#D2F25F] transition-shadow"
             >
               Simpan pratinjau
             </button>

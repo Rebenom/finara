@@ -83,18 +83,24 @@ export const CountUpRupiah: React.FC<CountUpRupiahProps> = ({
   return <RupiahAmount value={displayValue} className={className} />;
 };
 
-export type MarkerVariant = 'perhitungan' | 'baseline' | 'sementara' | 'rekomendasi';
+export type MarkerVariant = 'perhitungan' | 'baseline' | 'model' | 'sementara' | 'rekomendasi';
 
 interface ResultMarkerProps {
   variant: MarkerVariant;
   label?: string;
+  onDark?: boolean;
 }
 
-export const ResultMarker: React.FC<ResultMarkerProps> = ({ variant, label }) => {
-  if (variant === 'baseline') {
+export const ResultMarker: React.FC<ResultMarkerProps> = ({
+  variant,
+  label,
+  onDark = false,
+}) => {
+  if (variant === 'baseline' || variant === 'model') {
+    const defaultLabel = variant === 'model' ? 'Perkiraan model' : 'Perkiraan baseline';
     return (
       <span className="inline-flex items-center rounded-full border-[1.5px] border-dashed border-[#15121E] bg-[#C4B2FF] px-2.5 py-0.5 text-[11px] font-semibold text-[#15121E] whitespace-nowrap shrink-0">
-        {label ?? 'Perkiraan baseline'}
+        {label ?? defaultLabel}
       </span>
     );
   }
@@ -113,7 +119,11 @@ export const ResultMarker: React.FC<ResultMarkerProps> = ({ variant, label }) =>
     );
   }
   return (
-    <span className="inline-flex items-center rounded-full border-[1.5px] border-[#15121E] bg-white px-2.5 py-0.5 text-[11px] font-semibold text-[#15121E] whitespace-nowrap shrink-0">
+    <span
+      className={`text-[12px] font-semibold whitespace-nowrap shrink-0 ${
+        onDark ? 'text-[#F8F3E6]/65' : 'text-[#15121E]/60'
+      }`}
+    >
       {label ?? 'Perhitungan'}
     </span>
   );
@@ -133,8 +143,8 @@ const STICKER_STYLES: Record<
   kuliah: { bg: 'bg-[#D2F25F]', shape: 'rounded-[12px]', tilt: '-rotate-6', Icon: GraduationCap },
   hiburan: { bg: 'bg-[#FFD84D]', shape: 'rounded-full', tilt: 'rotate-6', Icon: Gamepad2 },
   cicilan: { bg: 'bg-white', shape: 'rounded-[12px]', tilt: '-rotate-6', Icon: Smartphone },
-  pemasukan: { bg: 'bg-[#D2F25F]', shape: 'rounded-full', tilt: 'rotate-6', Icon: Wallet },
-  tabungan: { bg: 'bg-white', shape: 'rounded-[12px]', tilt: '-rotate-6', Icon: PiggyBank },
+  pemasukan: { bg: 'bg-[#A9D9FF]', shape: 'rounded-full', tilt: 'rotate-6', Icon: Wallet },
+  tabungan: { bg: 'bg-[#D2F25F]', shape: 'rounded-[12px]', tilt: '-rotate-6', Icon: PiggyBank },
   laptop: { bg: 'bg-white', shape: 'rounded-[12px]', tilt: '-rotate-6', Icon: Laptop },
 };
 

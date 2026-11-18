@@ -72,7 +72,7 @@ export const AnggaranPage: React.FC = () => {
           <button
             type="button"
             onClick={handleCopyLastMonth}
-            className="inline-flex items-center gap-2 rounded-full border-2 border-[#15121E] bg-[#F8F3E6] px-4 py-2 text-[13px] font-bold text-[#15121E] hover:bg-[#D2F25F] transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-[#15121E] bg-[#F8F3E6] px-4 py-2 text-[13px] font-bold text-[#15121E] hover:bg-white hover:shadow-[2px_2px_0_#15121E] transition-all whitespace-nowrap shrink-0"
           >
             {copiedNotice ? (
               <Check size={16} strokeWidth={2.5} />
@@ -84,7 +84,7 @@ export const AnggaranPage: React.FC = () => {
         </div>
 
         {copiedNotice && (
-          <div className="rounded-[12px] border-[1.5px] border-[#15121E] bg-[#D2F25F] px-4 py-2.5 text-[13px] font-semibold text-[#15121E]">
+          <div className="rounded-[12px] border-[1.5px] border-[#15121E] bg-[#F8F3E6] px-4 py-2.5 text-[13px] font-semibold text-[#15121E]">
             Batas anggaran Oktober 2026 (total Rp2.200.000) diterapkan ke templat bulan berjalan.
           </div>
         )}

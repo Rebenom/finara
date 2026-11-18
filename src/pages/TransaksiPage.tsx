@@ -1,26 +1,35 @@
 import React, { useMemo, useState } from 'react';
-import { Plus, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { TRANSACTIONS } from '../data';
 import type { CategoryId, TransactionType } from '../types';
 import { filterTransactions, formatRupiah } from '../utils/finance';
+import { CustomSelect } from '../components/CustomSelect';
 import { CategorySticker, ResultMarker, RupiahAmount } from '../components/NeoPrimitives';
 
-interface TransaksiPageProps {
-  onOpenAddTransaction: (defaultCategory?: string) => void;
-}
-
-const CATEGORY_OPTIONS: { id: CategoryId | 'semua'; label: string }[] = [
-  { id: 'semua', label: 'Semua kategori' },
-  { id: 'makan', label: 'Makan dan minum' },
-  { id: 'transportasi', label: 'Transportasi' },
-  { id: 'kuliah', label: 'Keperluan kuliah' },
-  { id: 'hiburan', label: 'Hiburan dan jajan' },
-  { id: 'cicilan', label: 'Cicilan ponsel' },
-  { id: 'pemasukan', label: 'Pemasukan' },
-  { id: 'tabungan', label: 'Setoran tabungan' },
+const CATEGORY_OPTIONS: { value: CategoryId | 'semua'; label: string }[] = [
+  { value: 'semua', label: 'Semua kategori' },
+  { value: 'makan', label: 'Makan dan minum' },
+  { value: 'transportasi', label: 'Transportasi' },
+  { value: 'kuliah', label: 'Keperluan kuliah' },
+  { value: 'hiburan', label: 'Hiburan dan jajan' },
+  { value: 'cicilan', label: 'Cicilan ponsel' },
+  { value: 'pemasukan', label: 'Pemasukan' },
+  { value: 'tabungan', label: 'Setoran tabungan' },
 ];
 
-export const TransaksiPage: React.FC<TransaksiPageProps> = ({ onOpenAddTransaction }) => {
+const TYPE_OPTIONS: { value: TransactionType | 'semua'; label: string }[] = [
+  { value: 'semua', label: 'Semua jenis' },
+  { value: 'pengeluaran', label: 'Pengeluaran' },
+  { value: 'pemasukan', label: 'Pemasukan' },
+  { value: 'tabungan', label: 'Setoran tabungan' },
+];
+
+const DAY_OPTIONS = Array.from({ length: 15 }, (_, i) => {
+  const day = i + 1;
+  return { value: String(day), label: `${day} Nov` };
+});
+
+export const TransaksiPage: React.FC = () => {
   const [categoryId, setCategoryId] = useState<CategoryId | 'semua'>('semua');
   const [typeFilter, setTypeFilter] = useState<TransactionType | 'semua'>('semua');
   const [startDay, setStartDay] = useState<number>(1);
@@ -90,136 +99,116 @@ export const TransaksiPage: React.FC<TransaksiPageProps> = ({ onOpenAddTransacti
         </div>
       </section>
 
-      {/* Filters + CTA */}
+      {/* Filters + Table */}
       <section
         aria-label="Filter daftar transaksi"
         className="neo-card bg-white p-6 space-y-5"
       >
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div className="flex flex-wrap items-end gap-4">
-            {/* Search */}
-            <div>
-              <label
-                htmlFor="filter-query"
-                className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
-              >
-                Cari keterangan
-              </label>
-              <div className="relative">
-                <Search
-                  size={15}
-                  strokeWidth={2.25}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#15121E]/65"
-                  aria-hidden="true"
-                />
-                <input
-                  id="filter-query"
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Misalnya: kantin, KRL..."
-                  className="w-[220px] rounded-[12px] border-2 border-[#15121E] bg-[#F8F3E6] pl-9 pr-3 py-2 text-[13px] font-medium text-[#15121E]"
-                />
-              </div>
-            </div>
-
-            {/* Category */}
-            <div>
-              <label
-                htmlFor="filter-category"
-                className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
-              >
-                Kategori
-              </label>
-              <select
-                id="filter-category"
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value as CategoryId | 'semua')}
-                className="rounded-[12px] border-2 border-[#15121E] bg-[#F8F3E6] px-3 py-2 text-[13px] font-semibold text-[#15121E]"
-              >
-                {CATEGORY_OPTIONS.map((opt) => (
-                  <option key={opt.id} value={opt.id}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Type */}
-            <div>
-              <label
-                htmlFor="filter-type"
-                className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
-              >
-                Jenis
-              </label>
-              <select
-                id="filter-type"
-                value={typeFilter}
-                onChange={(e) => setTypeFilter(e.target.value as TransactionType | 'semua')}
-                className="rounded-[12px] border-2 border-[#15121E] bg-[#F8F3E6] px-3 py-2 text-[13px] font-semibold text-[#15121E]"
-              >
-                <option value="semua">Semua jenis</option>
-                <option value="pengeluaran">Pengeluaran</option>
-                <option value="pemasukan">Pemasukan</option>
-                <option value="tabungan">Setoran tabungan</option>
-              </select>
-            </div>
-
-            {/* Day Range */}
-            <div className="flex items-end gap-2">
-              <div>
-                <label
-                  htmlFor="filter-start-day"
-                  className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
-                >
-                  Dari tanggal
-                </label>
-                <select
-                  id="filter-start-day"
-                  value={startDay}
-                  onChange={(e) => setStartDay(Number(e.target.value))}
-                  className="rounded-[12px] border-2 border-[#15121E] bg-[#F8F3E6] px-3 py-2 text-[13px] font-semibold text-[#15121E] tabular-nums"
-                >
-                  {Array.from({ length: 15 }, (_, i) => i + 1).map((d) => (
-                    <option key={d} value={d}>
-                      {d} Nov
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <span className="pb-2.5 text-[13px] font-bold text-[#15121E]">–</span>
-              <div>
-                <label
-                  htmlFor="filter-end-day"
-                  className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
-                >
-                  Sampai
-                </label>
-                <select
-                  id="filter-end-day"
-                  value={endDay}
-                  onChange={(e) => setEndDay(Number(e.target.value))}
-                  className="rounded-[12px] border-2 border-[#15121E] bg-[#F8F3E6] px-3 py-2 text-[13px] font-semibold text-[#15121E] tabular-nums"
-                >
-                  {Array.from({ length: 15 }, (_, i) => i + 1).map((d) => (
-                    <option key={d} value={d}>
-                      {d} Nov
-                    </option>
-                  ))}
-                </select>
-              </div>
+        <div className="flex flex-wrap items-end gap-4">
+          {/* Search */}
+          <div>
+            <label
+              htmlFor="filter-query"
+              className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
+            >
+              Cari keterangan
+            </label>
+            <div className="relative">
+              <Search
+                size={15}
+                strokeWidth={2.25}
+                className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#15121E]/65"
+                aria-hidden="true"
+              />
+              <input
+                id="filter-query"
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Misalnya: kantin, KRL..."
+                className="h-[44px] w-[240px] rounded-[14px] border-2 border-[#15121E] bg-[#F8F3E6] pl-9 pr-3.5 text-[13px] font-medium text-[#15121E]"
+              />
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => onOpenAddTransaction('Makan dan minum')}
-            className="inline-flex items-center gap-2 rounded-full border-2 border-[#15121E] bg-[#D2F25F] px-4 py-2 text-[13px] font-bold text-[#15121E] whitespace-nowrap shrink-0 hover:shadow-[3px_3px_0_#15121E] transition-shadow"
-          >
-            <Plus size={16} strokeWidth={2.5} />
-            <span>Tambah transaksi</span>
-          </button>
+          {/* Category */}
+          <div>
+            <span
+              id="filter-category-label"
+              className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
+            >
+              Kategori
+            </span>
+            <CustomSelect
+              id="filter-category"
+              ariaLabelledBy="filter-category-label"
+              value={categoryId}
+              options={CATEGORY_OPTIONS}
+              onChange={(val) => setCategoryId(val as CategoryId | 'semua')}
+              bgClass="bg-[#F8F3E6]"
+              className="min-w-[190px]"
+            />
+          </div>
+
+          {/* Type */}
+          <div>
+            <span
+              id="filter-type-label"
+              className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
+            >
+              Jenis
+            </span>
+            <CustomSelect
+              id="filter-type"
+              ariaLabelledBy="filter-type-label"
+              value={typeFilter}
+              options={TYPE_OPTIONS}
+              onChange={(val) => setTypeFilter(val as TransactionType | 'semua')}
+              bgClass="bg-[#F8F3E6]"
+              className="min-w-[168px]"
+            />
+          </div>
+
+          {/* Day Range */}
+          <div className="flex items-end gap-2">
+            <div>
+              <span
+                id="filter-start-day-label"
+                className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
+              >
+                Dari tanggal
+              </span>
+              <CustomSelect
+                id="filter-start-day"
+                ariaLabelledBy="filter-start-day-label"
+                value={String(startDay)}
+                options={DAY_OPTIONS}
+                onChange={(val) => setStartDay(Number(val))}
+                bgClass="bg-[#F8F3E6]"
+                className="min-w-[112px] tabular-nums"
+              />
+            </div>
+            <span className="h-[44px] flex items-center text-[13px] font-bold text-[#15121E]">
+              –
+            </span>
+            <div>
+              <span
+                id="filter-end-day-label"
+                className="block text-[12px] font-semibold text-[#15121E]/75 mb-1.5"
+              >
+                Sampai
+              </span>
+              <CustomSelect
+                id="filter-end-day"
+                ariaLabelledBy="filter-end-day-label"
+                value={String(endDay)}
+                options={DAY_OPTIONS}
+                onChange={(val) => setEndDay(Number(val))}
+                bgClass="bg-[#F8F3E6]"
+                className="min-w-[112px] tabular-nums"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Table */}
@@ -268,21 +257,12 @@ export const TransaksiPage: React.FC<TransaksiPageProps> = ({ onOpenAddTransacti
                     </td>
                     <td className="py-3.5 px-4 text-[#15121E]">{tx.description}</td>
                     <td className="py-3.5 px-4 whitespace-nowrap">
-                      <span
-                        className={`neo-chip px-2.5 py-0.5 ${
-                          tx.type === 'pemasukan'
-                            ? 'bg-[#A9D9FF]'
-                            : tx.type === 'tabungan'
-                            ? 'bg-[#D2F25F]'
-                            : 'bg-[#F8F3E6]'
-                        }`}
-                      >
-                        {tx.type === 'pemasukan'
-                          ? 'Pemasukan'
-                          : tx.type === 'tabungan'
-                          ? 'Tabungan'
-                          : 'Pengeluaran'}
-                      </span>
+                      {tx.type === 'pemasukan' && (
+                        <span className="neo-chip bg-[#A9D9FF] px-2.5 py-0.5">Pemasukan</span>
+                      )}
+                      {tx.type === 'tabungan' && (
+                        <span className="neo-chip bg-[#D2F25F] px-2.5 py-0.5">Tabungan</span>
+                      )}
                     </td>
                     <td className="py-3.5 pl-4 text-right font-display-num text-[16px] font-bold text-[#15121E] tabular-nums whitespace-nowrap">
                       {tx.type === 'pemasukan' ? '+' : '-'}

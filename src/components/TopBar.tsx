@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, Plus } from 'lucide-react';
+import { CustomSelect } from './CustomSelect';
 
 interface TopBarProps {
   title: string;
@@ -11,7 +12,10 @@ interface TopBarProps {
   onOpenAddTransaction: () => void;
 }
 
-const PERIOD_OPTIONS = ['November 2026', 'Oktober 2026 (Arsip)'];
+const PERIOD_OPTIONS = [
+  { value: 'November 2026', label: 'November 2026' },
+  { value: 'Oktober 2026 (Arsip)', label: 'Oktober 2026 (Arsip)' },
+];
 
 export const TopBar: React.FC<TopBarProps> = ({
   title,
@@ -35,39 +39,20 @@ export const TopBar: React.FC<TopBarProps> = ({
       </div>
 
       <div className="flex items-center gap-3 shrink-0 pt-1">
-        {/* Period selector */}
-        <label className="sr-only" htmlFor="period-select">
-          Pilih periode bulan
-        </label>
-        <div className="relative inline-flex items-center">
-          <Calendar
-            size={15}
-            strokeWidth={2.25}
-            className="pointer-events-none absolute left-3.5 text-[#15121E]"
-            aria-hidden="true"
-          />
-          <select
-            id="period-select"
-            value={periodLabel}
-            onChange={(e) => onPeriodChange(e.target.value)}
-            className="appearance-none rounded-full border-[1.5px] border-[#15121E] bg-white pl-9 pr-7 py-2 text-[13px] font-semibold text-[#15121E] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#15121E]"
-          >
-            {PERIOD_OPTIONS.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </select>
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute right-3 text-[10px] font-bold text-[#15121E]"
-          >
-            ▾
-          </span>
-        </div>
+        {/* Custom period dropdown */}
+        <CustomSelect
+          id="period-select"
+          ariaLabel="Pilih periode bulan"
+          value={periodLabel}
+          options={PERIOD_OPTIONS}
+          onChange={onPeriodChange}
+          leadingIcon={<Calendar size={15} strokeWidth={2.25} />}
+          bgClass="bg-white"
+          align="right"
+        />
 
         {/* Day progress chip */}
-        <span className="neo-chip bg-white px-3.5 py-2 text-[#15121E] whitespace-nowrap shrink-0 tabular-nums">
+        <span className="neo-chip bg-white px-3.5 py-2.5 text-[#15121E] whitespace-nowrap shrink-0 tabular-nums">
           Hari ke-{currentDay} dari {totalDays}
         </span>
 
@@ -75,7 +60,7 @@ export const TopBar: React.FC<TopBarProps> = ({
         <button
           type="button"
           onClick={onOpenAddTransaction}
-          className="inline-flex items-center gap-2 rounded-full border-2 border-[#15121E] bg-[#15121E] px-5 py-2 text-[13px] font-bold text-[#F8F3E6] whitespace-nowrap shrink-0 transition-transform duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#D2F25F] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#15121E]"
+          className="h-[44px] inline-flex items-center gap-2 rounded-full border-2 border-[#15121E] bg-[#15121E] px-5 text-[13px] font-bold text-[#F8F3E6] whitespace-nowrap shrink-0 transition-transform duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#D2F25F] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#15121E]"
         >
           <Plus size={16} strokeWidth={2.5} />
           <span>Catat transaksi</span>

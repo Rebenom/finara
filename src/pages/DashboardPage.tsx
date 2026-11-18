@@ -90,7 +90,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
             <h2 className="text-[18px] font-bold text-[#F8F3E6] font-display-heading">
               Sisa dana saat ini
             </h2>
-            <ResultMarker variant="perhitungan" />
+            <ResultMarker variant="perhitungan" onDark />
           </div>
 
           <div className="my-4">
@@ -479,9 +479,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Bottom Simulation Disclaimer */}
-      <footer className="pt-2 pb-4 text-[12px] text-[#15121E]/65">
-        {METHOD_INFO.disclaimer}
+      {/* Marker legend & bottom simulation disclaimer */}
+      <footer className="pt-1 pb-4 space-y-1.5 text-[12px]">
+        <p className="font-medium text-[#15121E]/75">
+          Perhitungan = hasil rumus pasti · Perkiraan = hasil baseline atau model, bukan kepastian ·
+          Rekomendasi = saran sistem.
+        </p>
+        <p className="text-[#15121E]/60">{METHOD_INFO.disclaimer}</p>
       </footer>
     </div>
   );
