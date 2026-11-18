@@ -143,10 +143,10 @@ export const TabunganPage: React.FC<TabunganPageProps> = ({ onOpenAddDeposit }) 
               <div className="flex items-start justify-between gap-2.5">
                 {/* Term 1: KS */}
                 <div className="flex-1 min-w-0">
-                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-tight whitespace-nowrap">
+                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-none whitespace-nowrap flex items-center h-7">
                     <RupiahAmount value={600000} />
                   </div>
-                  <p className="mt-1 text-[12px] font-medium text-[#15121E]/85 leading-snug">
+                  <p className="mt-1.5 text-[12px] font-medium text-[#15121E]/85 leading-snug">
                     Perlu disetor per bulan
                   </p>
                   <p className="mt-1 font-mono text-[11px] font-semibold text-[#15121E]/50">KS</p>
@@ -155,17 +155,17 @@ export const TabunganPage: React.FC<TabunganPageProps> = ({ onOpenAddDeposit }) 
                 {/* Operator: - */}
                 <span
                   aria-hidden="true"
-                  className="w-7 h-7 rounded-full bg-[#15121E] text-[#F8F3E6] flex items-center justify-center text-[15px] font-bold shrink-0 mt-0.5"
+                  className="w-7 h-7 rounded-full bg-[#15121E] text-[#F8F3E6] flex items-center justify-center text-[15px] font-bold shrink-0"
                 >
                   −
                 </span>
 
                 {/* Term 2: Tef */}
                 <div className="flex-1 min-w-0">
-                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-tight whitespace-nowrap">
+                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-none whitespace-nowrap flex items-center h-7">
                     <RupiahAmount value={300000} />
                   </div>
-                  <p className="mt-1 text-[12px] font-medium text-[#15121E]/85 leading-snug">
+                  <p className="mt-1.5 text-[12px] font-medium text-[#15121E]/85 leading-snug">
                     Sudah disetor bulan ini
                   </p>
                   <p className="mt-1 font-mono text-[11px] font-semibold text-[#15121E]/50">Tef</p>
@@ -174,17 +174,17 @@ export const TabunganPage: React.FC<TabunganPageProps> = ({ onOpenAddDeposit }) 
                 {/* Operator: = */}
                 <span
                   aria-hidden="true"
-                  className="w-7 h-7 rounded-full bg-[#15121E] text-[#F8F3E6] flex items-center justify-center text-[15px] font-bold shrink-0 mt-0.5"
+                  className="w-7 h-7 rounded-full bg-[#15121E] text-[#F8F3E6] flex items-center justify-center text-[15px] font-bold shrink-0"
                 >
                   =
                 </span>
 
                 {/* Term 3: KSr */}
                 <div className="flex-1 min-w-0">
-                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-tight whitespace-nowrap">
+                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-none whitespace-nowrap flex items-center h-7">
                     <RupiahAmount value={300000} />
                   </div>
-                  <p className="mt-1 text-[12px] font-medium text-[#15121E]/85 leading-snug">
+                  <p className="mt-1.5 text-[12px] font-medium text-[#15121E]/85 leading-snug">
                     Sisa setoran bulan ini
                   </p>
                   <p className="mt-1 font-mono text-[11px] font-semibold text-[#15121E]/50">KSr</p>
@@ -193,17 +193,17 @@ export const TabunganPage: React.FC<TabunganPageProps> = ({ onOpenAddDeposit }) 
                 {/* Operator: - */}
                 <span
                   aria-hidden="true"
-                  className="w-7 h-7 rounded-full bg-[#15121E] text-[#F8F3E6] flex items-center justify-center text-[15px] font-bold shrink-0 mt-0.5"
+                  className="w-7 h-7 rounded-full bg-[#15121E] text-[#F8F3E6] flex items-center justify-center text-[15px] font-bold shrink-0"
                 >
                   −
                 </span>
 
                 {/* Term 4: DS */}
                 <div className="flex-1 min-w-0">
-                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-tight whitespace-nowrap">
+                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-none whitespace-nowrap flex items-center h-7">
                     <RupiahAmount value={100000} approx />
                   </div>
-                  <p className="mt-1 text-[12px] font-medium text-[#15121E]/85 leading-snug">
+                  <p className="mt-1.5 text-[12px] font-medium text-[#15121E]/85 leading-snug">
                     Dana yang masih bisa disetor
                   </p>
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">
@@ -215,17 +215,17 @@ export const TabunganPage: React.FC<TabunganPageProps> = ({ onOpenAddDeposit }) 
                 {/* Operator: = */}
                 <span
                   aria-hidden="true"
-                  className="w-7 h-7 rounded-full bg-[#15121E] text-[#F8F3E6] flex items-center justify-center text-[15px] font-bold shrink-0 mt-0.5"
+                  className="w-7 h-7 rounded-full bg-[#15121E] text-[#F8F3E6] flex items-center justify-center text-[15px] font-bold shrink-0"
                 >
                   =
                 </span>
 
                 {/* Term 5: KK */}
                 <div className="flex-1 min-w-0">
-                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-tight whitespace-nowrap">
+                  <div className="font-display-num text-[24px] font-extrabold text-[#15121E] leading-none whitespace-nowrap flex items-center h-7">
                     <RupiahAmount value={200000} approx />
                   </div>
-                  <p className="mt-1 text-[12px] font-medium text-[#15121E]/85 leading-snug">
+                  <p className="mt-1.5 text-[12px] font-medium text-[#15121E]/85 leading-snug">
                     Kekurangan
                   </p>
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">

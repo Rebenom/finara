@@ -23,6 +23,18 @@ export function formatRupiah(value: number, options?: { approx?: boolean }): str
   return options?.approx ? `≈ ${formatted}` : formatted;
 }
 
+export function formatInputRupiah(raw: string): string {
+  const digits = raw.replace(/\D/g, '');
+  if (!digits) return '';
+  const stripped = digits.replace(/^0+(?=\d)/, '');
+  return stripped.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+export function parseFormattedRupiah(formatted: string): number {
+  const digits = formatted.replace(/\D/g, '');
+  return digits ? Number(digits) : 0;
+}
+
 export function splitRupiah(value: number): SplitRupiahResult {
   return {
     prefix: 'Rp',

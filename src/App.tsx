@@ -26,11 +26,11 @@ export default function App() {
   const [activePage, setActivePage] = useState<PageId>('dashboard');
   const [periodLabel, setPeriodLabel] = useState<string>(USER_PROFILE.periodLabel);
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
-  const [addModalCategory, setAddModalCategory] = useState<string>('Makan dan minum');
+  const [addModalMode, setAddModalMode] = useState<'transaksi' | 'setoran'>('transaksi');
   const [aiExplanationEnabled, setAiExplanationEnabled] = useState<boolean>(true);
 
-  const openAddTransaction = (defaultCategory = 'Makan dan minum') => {
-    setAddModalCategory(defaultCategory);
+  const openAddTransaction = (mode: 'transaksi' | 'setoran' = 'transaksi') => {
+    setAddModalMode(mode);
     setAddModalOpen(true);
   };
 
@@ -52,17 +52,17 @@ export default function App() {
             onPeriodChange={setPeriodLabel}
             currentDay={USER_PROFILE.currentDay}
             totalDays={USER_PROFILE.totalDays}
-            onOpenAddTransaction={() => openAddTransaction('Makan dan minum')}
+            onOpenAddTransaction={() => openAddTransaction('transaksi')}
           />
 
           {activePage === 'dashboard' && <DashboardPage onNavigate={handleNavigate} />}
           {activePage === 'transaksi' && <TransaksiPage />}
           {activePage === 'anggaran' && <AnggaranPage />}
           {activePage === 'tabungan' && (
-            <TabunganPage onOpenAddDeposit={() => openAddTransaction('Tabungan Laptop')} />
+            <TabunganPage onOpenAddDeposit={() => openAddTransaction('setoran')} />
           )}
           {activePage === 'analisis' && (
-            <AnalisisPage onOpenAddTransaction={() => openAddTransaction('Makan dan minum')} />
+            <AnalisisPage onOpenAddTransaction={() => openAddTransaction('transaksi')} />
           )}
           {activePage === 'rekomendasi' && (
             <RekomendasiPage
@@ -80,10 +80,10 @@ export default function App() {
       </main>
 
       <AddTransactionModal
-        key={addModalCategory + String(addModalOpen)}
+        key={`${addModalMode}-${String(addModalOpen)}`}
         isOpen={addModalOpen}
         onClose={() => setAddModalOpen(false)}
-        defaultCategory={addModalCategory}
+        mode={addModalMode}
       />
     </div>
   );

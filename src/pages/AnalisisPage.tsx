@@ -75,8 +75,8 @@ export const AnalisisPage: React.FC<AnalisisPageProps> = ({ onOpenAddTransaction
               {METHOD_INFO.insufficientDataReason}
             </p>
             <p className="text-[14px] font-semibold text-[#15121E]">
-              Catat pemasukan dan pengeluaran harian secara rutin selama beberapa hari ke depan
-              agar Finara dapat menghitung laju belanja dan pola keuanganmu.
+              Catat pemasukan dan pengeluaran harian secara rutin agar Finara dapat menghitung laju
+              belanja dan pola keuangan bulan ini.
             </p>
 
             <div className="pt-2">
@@ -93,9 +93,9 @@ export const AnalisisPage: React.FC<AnalisisPageProps> = ({ onOpenAddTransaction
         </section>
       ) : (
         /* Active Baseline Analysis & Forecast */
-        <div className="grid grid-cols-[1.55fr_1fr] gap-6 items-stretch">
+        <div className="grid grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] gap-6 items-stretch">
           {/* Forecast + Method Card */}
-          <section className="neo-card bg-white p-6 flex flex-col justify-between">
+          <section className="min-w-0 neo-card bg-white p-6 flex flex-col justify-between">
             <div>
               <div className="flex items-start justify-between gap-4 mb-4">
                 <h2 className="font-display-heading text-[22px] font-bold text-[#15121E]">
@@ -147,7 +147,7 @@ export const AnalisisPage: React.FC<AnalisisPageProps> = ({ onOpenAddTransaction
           </section>
 
           {/* Pattern Classification Card (Lilac) */}
-          <section className="neo-card bg-[#C4B2FF] p-6 flex flex-col justify-between">
+          <section className="min-w-0 neo-card bg-[#C4B2FF] p-6 flex flex-col justify-between">
             <div>
               <div className="flex items-start justify-between gap-3 mb-4">
                 <h2 className="font-display-heading text-[22px] font-bold text-[#15121E]">

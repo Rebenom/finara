@@ -6,13 +6,16 @@ import {
   calculateRemainingCash,
   calculateRunningBalance,
   filterTransactions,
+  formatInputRupiah,
   formatPercent,
   formatRupiah,
+  parseFormattedRupiah,
   splitRupiah,
   summarizeBudgets,
 } from './finance';
 import {
   BUDGET_CATEGORIES,
+  METHOD_INFO,
   PATTERN_SUMMARY,
   RECOMMENDATIONS,
   SAVINGS_GOAL,
@@ -153,4 +156,17 @@ test('Recommendation basis variables use Syarat/Rumus and estimate markers witho
   assert.equal(RECOMMENDATIONS[1].variables[1].isEstimate, true);
   assert.equal(RECOMMENDATIONS[2].variables.length, 4);
 });
+
+test('Input nominal formatting uses thousands dots and parses back cleanly', () => {
+  assert.equal(formatInputRupiah('25000'), '25.000');
+  assert.equal(formatInputRupiah('300.000'), '300.000');
+  assert.equal(formatInputRupiah('0025000abc'), '25.000');
+  assert.equal(formatInputRupiah(''), '');
+  assert.equal(parseFormattedRupiah('25.000'), 25000);
+  assert.equal(parseFormattedRupiah('300.000'), 300000);
+  assert.equal(parseFormattedRupiah(''), 0);
+  assert.equal(METHOD_INFO.insufficientDataReason.includes('2 bulan riwayat'), false);
+  assert.equal(METHOD_INFO.insufficientDataReason.includes('minimal 10 transaksi pengeluaran'), true);
+});
+
 

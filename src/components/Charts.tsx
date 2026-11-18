@@ -13,16 +13,16 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
 }) => {
   const [hoveredDay, setHoveredDay] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [chartWidth, setChartWidth] = useState<number>(640);
+  const [chartWidth, setChartWidth] = useState<number>(0);
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
-    const updateWidth = () => {
-      const next = Math.round(el.getBoundingClientRect().width);
-      if (next > 0) {
-        setChartWidth(next);
+    const updateWidth = (nextWidth?: number) => {
+      const measured = Math.floor(nextWidth ?? el.getBoundingClientRect().width);
+      if (measured > 0) {
+        setChartWidth((prev) => (prev !== measured ? measured : prev));
       }
     };
 
@@ -31,17 +31,14 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
 
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        const next = Math.round(entry.contentRect.width);
-        if (next > 0) {
-          setChartWidth(next);
-        }
+        updateWidth(entry.contentRect.width);
       }
     });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-  const width = Math.max(360, chartWidth);
+  const width = chartWidth;
   const height = 246;
   const padLeft = 68;
   const padRight = 24;
@@ -87,14 +84,18 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
   const xTicks = [1, 15, 30];
 
   return (
-    <div ref={containerRef} className="relative w-full select-none">
-      <svg
-        width={width}
-        height={height}
-        className="block overflow-visible"
-        role="img"
-        aria-label="Grafik garis pengeluaran kumulatif hari ke-1 sampai hari ke-30"
-      >
+    <div
+      ref={containerRef}
+      className="relative w-full min-w-0 overflow-hidden select-none"
+    >
+      {width > 0 ? (
+        <svg
+          width={width}
+          height={height}
+          className="block"
+          role="img"
+          aria-label="Grafik garis pengeluaran kumulatif hari ke-1 sampai hari ke-30"
+        >
         {/* Thin dashed horizontal gridlines */}
         {yTicks.map((tick) => {
           const y = yForVal(tick);
@@ -295,6 +296,9 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
           );
         })}
       </svg>
+      ) : (
+        <div style={{ height }} aria-hidden="true" />
+      )}
 
       {/* Card-styled floating tooltip */}
       {hoveredPoint && (
@@ -405,7 +409,7 @@ export const PatternDonutChart: React.FC<PatternDonutChartProps> = ({ segments }
   const activeSegment = segments.find((s) => s.id === hoveredId) ?? null;
 
   return (
-    <div className="flex items-center gap-6">
+    <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-4">
       <div className="relative shrink-0">
         <svg
           width={184}
@@ -447,7 +451,7 @@ export const PatternDonutChart: React.FC<PatternDonutChartProps> = ({ segments }
         </div>
       </div>
 
-      <ul className="flex flex-1 flex-col gap-2.5">
+      <ul className="flex flex-1 min-w-[150px] flex-col gap-2.5">
         {segments.map((seg) => (
           <li
             key={seg.id}

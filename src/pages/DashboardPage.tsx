@@ -151,7 +151,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       {/* BARIS 2: Perkiraan akhir bulan (2/3) + Pola keuangan (1/3) */}
       <section
         aria-label="Perkiraan akhir bulan dan pola keuangan"
-        className="grid grid-cols-[2fr_1fr] gap-6 items-stretch"
+        className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-6 items-stretch"
       >
         {/* Left: Perkiraan akhir bulan */}
         <div
@@ -164,7 +164,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
               onNavigate('analisis');
             }
           }}
-          className="neo-card neo-card-interactive bg-white p-6 flex flex-col justify-between cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#15121E]"
+          className="min-w-0 neo-card neo-card-interactive bg-white p-6 flex flex-col justify-between cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#15121E]"
         >
           <div>
             <div className="flex items-start justify-between gap-4 mb-4">
@@ -221,7 +221,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
               onNavigate('analisis');
             }
           }}
-          className="neo-card neo-card-interactive bg-[#C4B2FF] p-6 flex flex-col justify-between cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#15121E]"
+          className="min-w-0 neo-card neo-card-interactive bg-[#C4B2FF] p-6 flex flex-col justify-between cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#15121E]"
         >
           <div>
             <div className="flex items-start justify-between gap-3 mb-4">
@@ -252,7 +252,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
       {/* BARIS 3: Status anggaran (3/5) + Target tabungan Laptop (2/5) */}
       <section
         aria-label="Status anggaran dan target tabungan"
-        className="grid grid-cols-[3fr_2fr] gap-6 items-stretch"
+        className="grid grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-6 items-stretch"
       >
         {/* Left: Status anggaran */}
         <div
@@ -265,7 +265,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
               onNavigate('anggaran');
             }
           }}
-          className="neo-card neo-card-interactive bg-white p-6 flex flex-col justify-between cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#15121E]"
+          className="min-w-0 neo-card neo-card-interactive bg-white p-6 flex flex-col justify-between cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#15121E]"
         >
           <div>
             <div className="flex items-start justify-between gap-4 mb-1.5">
@@ -347,7 +347,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
               onNavigate('tabungan');
             }
           }}
-          className="neo-card neo-card-interactive bg-[#D2F25F] p-6 flex flex-col cursor-pointer group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#15121E]"
+          className="min-w-0 neo-card neo-card-interactive bg-[#D2F25F] p-6 flex flex-col cursor-pointer group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#15121E]"
         >
           <div className="flex items-start justify-between gap-3 mb-4">
             <div className="flex items-center gap-3">

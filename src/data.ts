@@ -462,7 +462,7 @@ export const METHOD_INFO = {
   baselineDescription:
     'Dihitung dari laju pengeluaran Rp80.000 per hari. Model Deep Learning belum tersedia, jadi sistem memakai baseline. Ini perkiraan, bukan kepastian.',
   insufficientDataReason:
-    'Sistem membutuhkan minimal 7 hari transaksi aktif pada bulan berjalan atau 2 bulan riwayat lengkap untuk menghitung laju harian dan klasifikasi pola secara stabil.',
+    'Prediksi baru dihitung bila bulan ini sudah ada pemasukan, pencatatan berjalan minimal 7 hari, dan ada minimal 10 transaksi pengeluaran. Saat ini data belum memenuhi syarat itu.',
   aiPrivacyNote:
     'Hanya ringkasan agregat tanpa nama, akun bank, atau keterangan transaksi pribadi yang dikirim bila fitur ini diaktifkan.',
   disclaimer:
