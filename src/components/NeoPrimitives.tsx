@@ -89,17 +89,23 @@ interface ResultMarkerProps {
   variant: MarkerVariant;
   label?: string;
   onDark?: boolean;
+  outlineOnly?: boolean;
 }
 
 export const ResultMarker: React.FC<ResultMarkerProps> = ({
   variant,
   label,
   onDark = false,
+  outlineOnly = false,
 }) => {
   if (variant === 'baseline' || variant === 'model') {
     const defaultLabel = variant === 'model' ? 'Perkiraan model' : 'Perkiraan baseline';
     return (
-      <span className="inline-flex items-center rounded-full border-[1.5px] border-dashed border-[#15121E] bg-[#C4B2FF] px-2.5 py-0.5 text-[11px] font-semibold text-[#15121E] whitespace-nowrap shrink-0">
+      <span
+        className={`inline-flex items-center rounded-full border-[1.5px] border-dashed border-[#15121E] px-2.5 py-0.5 text-[11px] font-semibold text-[#15121E] whitespace-nowrap shrink-0 ${
+          outlineOnly ? 'bg-transparent' : 'bg-[#C4B2FF]'
+        }`}
+      >
         {label ?? defaultLabel}
       </span>
     );

@@ -106,7 +106,7 @@ test('Budget categories, pattern segments, savings alternatives, and recommendat
     SAVINGS_GOAL.requiredMonthly - SAVINGS_GOAL.savingCapacity,
     SAVINGS_GOAL.monthlyGap
   );
-  assert.equal(SAVINGS_GOAL.alternatives[1].valueLabel, '9 bulan (Juli 2027)');
+  assert.equal(SAVINGS_GOAL.alternatives[1].valueLabel, '9 bulan · Juli 2027');
   assert.deepEqual(
     RECOMMENDATIONS.map((r) => r.ruleCode),
     ['R-02', 'R-01', 'R-05']

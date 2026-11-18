@@ -125,9 +125,20 @@ export const AnggaranPage: React.FC = () => {
                       {formatRupiah(cat.spent)}
                     </td>
                     <td className="py-4 px-4 text-right font-bold tabular-nums">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-[#15121E] bg-[#C4B2FF]/45 px-2.5 py-0.5 text-[13px]">
-                        {formatRupiah(cat.projectedEndOfMonth, { approx: true })}
-                      </span>
+                      {cat.id === 'cicilan' ? (
+                        <div className="flex flex-col items-end">
+                          <span className="text-[14px] font-bold text-[#15121E]">
+                            {formatRupiah(cat.projectedEndOfMonth)}
+                          </span>
+                          <span className="text-[11px] font-medium text-[#15121E]/65">
+                            sudah dibayar
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-[#15121E] bg-[#C4B2FF]/45 px-2.5 py-0.5 text-[13px]">
+                          {formatRupiah(cat.projectedEndOfMonth, { approx: true })}
+                        </span>
+                      )}
                     </td>
                     <td className="py-4 px-4 text-right font-semibold tabular-nums">
                       {formatRupiah(remaining)}

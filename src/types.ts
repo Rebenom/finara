@@ -66,6 +66,7 @@ export interface PatternSegment {
 export interface SavingsAlternative {
   id: string;
   title: string;
+  metricLabel: string;
   valueLabel: string;
   detail: string;
 }

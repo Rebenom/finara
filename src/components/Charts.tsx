@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { CumulativePoint, PatternSegment } from '../types';
 import { formatPercentExact, formatRupiah } from '../utils/finance';
 
@@ -12,15 +12,43 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
   budgetLimit,
 }) => {
   const [hoveredDay, setHoveredDay] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [chartWidth, setChartWidth] = useState<number>(640);
 
-  const width = 660;
-  const height = 240;
-  const padLeft = 64;
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const updateWidth = () => {
+      const next = Math.round(el.getBoundingClientRect().width);
+      if (next > 0) {
+        setChartWidth(next);
+      }
+    };
+
+    updateWidth();
+    if (typeof ResizeObserver === 'undefined') return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const next = Math.round(entry.contentRect.width);
+        if (next > 0) {
+          setChartWidth(next);
+        }
+      }
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const width = Math.max(360, chartWidth);
+  const height = 246;
+  const padLeft = 68;
   const padRight = 24;
-  const padTop = 26;
+  const padTop = 34;
   const padBottom = 34;
 
-  const plotW = width - padLeft - padRight;
+  const plotW = Math.max(180, width - padLeft - padRight);
   const plotH = height - padTop - padBottom;
   const maxVal = 2800000;
 
@@ -59,10 +87,11 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
   const xTicks = [1, 15, 30];
 
   return (
-    <div className="relative w-full select-none">
+    <div ref={containerRef} className="relative w-full select-none">
       <svg
-        viewBox={`0 0 ${width} ${height}`}
-        className="w-full h-auto overflow-visible"
+        width={width}
+        height={height}
+        className="block overflow-visible"
         role="img"
         aria-label="Grafik garis pengeluaran kumulatif hari ke-1 sampai hari ke-30"
       >
@@ -85,7 +114,11 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
                 x={padLeft - 10}
                 y={y + 4}
                 textAnchor="end"
-                className="fill-[#15121E]/65 text-[12px] font-medium tabular-nums"
+                fill="#15121E"
+                fillOpacity={0.7}
+                fontSize={12.5}
+                fontWeight={500}
+                className="tabular-nums"
               >
                 {tick === 0 ? 'Rp0' : tick === 1400000 ? 'Rp1,4 jt' : 'Rp2,6 jt'}
               </text>
@@ -106,18 +139,26 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
           strokeWidth={1.5}
           strokeDasharray="6 5"
         />
-        <g transform={`translate(${padLeft + 10}, ${budgetY - 10})`}>
+        <g transform={`translate(${padLeft + 10}, ${budgetY - 12})`}>
           <rect
             x={-6}
-            y={-14}
-            width={146}
-            height={20}
-            rx={7}
+            y={-15}
+            width={162}
+            height={23}
+            rx={8}
             fill="#FFFFFF"
             stroke="#15121E"
             strokeWidth={1.25}
           />
-          <text x={2} y={0} className="fill-[#15121E] text-[12px] font-semibold tabular-nums">
+          <text
+            x={4}
+            y={1}
+            fill="#15121E"
+            fillOpacity={0.7}
+            fontSize={12.5}
+            fontWeight={600}
+            className="tabular-nums"
+          >
             Anggaran Rp2.200.000
           </text>
         </g>
@@ -156,15 +197,15 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
             />
             <g
               transform={`translate(${xForDay(todayPoint.day)}, ${
-                yForVal(todayPoint.actualCumulative) - 18
+                yForVal(todayPoint.actualCumulative) - 20
               })`}
             >
               <rect
-                x={-33}
-                y={-16}
-                width={66}
-                height={21}
-                rx={10.5}
+                x={-35}
+                y={-17}
+                width={70}
+                height={24}
+                rx={12}
                 fill="#D2F25F"
                 stroke="#15121E"
                 strokeWidth={1.5}
@@ -173,7 +214,10 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
                 x={0}
                 y={-1}
                 textAnchor="middle"
-                className="fill-[#15121E] text-[12px] font-bold"
+                fill="#15121E"
+                fillOpacity={0.7}
+                fontSize={12.5}
+                fontWeight={700}
               >
                 Hari ini
               </text>
@@ -200,7 +244,11 @@ export const CumulativeExpenseChart: React.FC<CumulativeExpenseChartProps> = ({
             x={xForDay(d)}
             y={height - 8}
             textAnchor={d === 1 ? 'start' : d === 30 ? 'end' : 'middle'}
-            className="fill-[#15121E]/70 text-[12px] font-semibold tabular-nums"
+            fill="#15121E"
+            fillOpacity={0.7}
+            fontSize={12.5}
+            fontWeight={600}
+            className="tabular-nums"
           >
             Hari {d}
           </text>

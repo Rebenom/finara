@@ -216,17 +216,16 @@ export const TransaksiPage: React.FC = () => {
           <table className="w-full border-collapse text-left">
             <thead>
               <tr className="border-b-2 border-[#15121E] text-[12px] font-bold text-[#15121E]/75">
-                <th className="py-3 pr-4">Tanggal</th>
-                <th className="py-3 px-4">Kategori</th>
-                <th className="py-3 px-4">Keterangan</th>
-                <th className="py-3 px-4">Jenis</th>
-                <th className="py-3 pl-4 text-right">Nominal</th>
+                <th className="py-3 pr-4 whitespace-nowrap">Tanggal</th>
+                <th className="py-3 px-4 whitespace-nowrap">Kategori</th>
+                <th className="py-3 px-4 w-full">Keterangan</th>
+                <th className="py-3 pl-4 text-right whitespace-nowrap">Nominal</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#15121E]/12 text-[14px]">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-10 text-center text-[#15121E]/75">
+                  <td colSpan={4} className="py-10 text-center text-[#15121E]/75">
                     Tidak ada transaksi yang cocok dengan filter saat ini.{' '}
                     <button
                       type="button"
@@ -256,17 +255,18 @@ export const TransaksiPage: React.FC = () => {
                       </div>
                     </td>
                     <td className="py-3.5 px-4 text-[#15121E]">{tx.description}</td>
-                    <td className="py-3.5 px-4 whitespace-nowrap">
-                      {tx.type === 'pemasukan' && (
-                        <span className="neo-chip bg-[#A9D9FF] px-2.5 py-0.5">Pemasukan</span>
-                      )}
-                      {tx.type === 'tabungan' && (
-                        <span className="neo-chip bg-[#D2F25F] px-2.5 py-0.5">Tabungan</span>
-                      )}
-                    </td>
                     <td className="py-3.5 pl-4 text-right font-display-num text-[16px] font-bold text-[#15121E] tabular-nums whitespace-nowrap">
-                      {tx.type === 'pemasukan' ? '+' : '-'}
-                      {formatRupiah(tx.amount)}
+                      {tx.type === 'pemasukan' ? (
+                        <span className="inline-block rounded-[8px] bg-[#A9D9FF] px-2 py-0.5">
+                          +{formatRupiah(tx.amount)}
+                        </span>
+                      ) : tx.type === 'tabungan' ? (
+                        <span className="inline-block rounded-[8px] bg-[#D2F25F] px-2 py-0.5">
+                          -{formatRupiah(tx.amount)}
+                        </span>
+                      ) : (
+                        <span>-{formatRupiah(tx.amount)}</span>
+                      )}
                     </td>
                   </tr>
                 ))

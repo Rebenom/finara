@@ -279,7 +279,8 @@ export const BUDGET_CATEGORIES: BudgetCategory[] = [
 export const PATTERN_SUMMARY = {
   label: 'Pengeluaran Fleksibel Tinggi',
   marker: 'Sementara',
-  temporaryNote: 'Label sementara karena bulan masih berjalan',
+  temporaryNote:
+    'Label sementara: bulan masih berjalan dan model belum dilatih (contoh ilustrasi)',
   characteristics: [
     'Porsi kebutuhan pokok berada di angka 64,3% (Rp900.000) dari total pengeluaran.',
     'Pengeluaran keinginan mencapai 21,4% (Rp300.000) hanya dalam separuh bulan berjalan.',
@@ -325,19 +326,22 @@ export const SAVINGS_GOAL: SavingsGoal = {
     {
       id: 'alt-save',
       title: 'Hemat pos fleksibel',
-      valueLabel: 'Tambah Rp200.000/bulan',
+      metricLabel: 'Tambahan hemat',
+      valueLabel: 'Rp200.000/bulan',
       detail: 'Tahan jajan dan kurangi makan di luar agar setoran tetap Rp600.000/bulan.',
     },
     {
       id: 'alt-deadline',
       title: 'Geser tenggat waktu',
-      valueLabel: '9 bulan (Juli 2027)',
+      metricLabel: 'Tenggat baru',
+      valueLabel: '9 bulan · Juli 2027',
       detail: 'Dengan kapasitas Rp400.000/bulan, target Rp6.000.000 tercapai dalam 9 bulan.',
     },
     {
       id: 'alt-budget',
       title: 'Sesuaikan harga target',
-      valueLabel: 'Maksimum Rp4.800.000',
+      metricLabel: 'Harga target maks.',
+      valueLabel: 'Rp4.800.000',
       detail: 'Menjaga tenggat April 2027 tanpa mengubah kapasitas menabung saat ini.',
     },
   ],

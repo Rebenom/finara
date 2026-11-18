@@ -380,21 +380,21 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
               />
             </div>
 
-            <div className="relative h-5 mt-1 text-[11px] font-semibold text-[#15121E]/70 tabular-nums select-none">
+            <div className="relative h-[26px] mt-1.5 text-[12px] font-semibold text-[#15121E]/70 tabular-nums select-none">
               {[25, 50, 75].map((pct) => (
                 <div
                   key={pct}
                   className="absolute top-0 -translate-x-1/2 flex flex-col items-center"
                   style={{ left: `${pct}%` }}
                 >
-                  <span className="w-[1.5px] h-1.5 bg-[#15121E]/55" aria-hidden="true" />
-                  <span className="leading-none mt-0.5">{pct}%</span>
+                  <span className="w-[2px] h-2 bg-[#15121E]/70" aria-hidden="true" />
+                  <span className="leading-none mt-1">{pct}%</span>
                 </div>
               ))}
             </div>
 
-            <p className="mt-2 text-[13px] font-medium text-[#15121E]/85 tabular-nums">
-              Sisa kebutuhan{' '}
+            <p className="mt-3 text-[13px] font-medium text-[#15121E]/85 tabular-nums">
+              Masih perlu terkumpul{' '}
               <strong className="font-bold text-[#15121E]">
                 {formatRupiah(remainingTarget)}
               </strong>

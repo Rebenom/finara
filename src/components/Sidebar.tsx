@@ -38,7 +38,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <aside
       aria-label="Navigasi utama Finara"
-      className="w-[240px] shrink-0 bg-[#F8F3E6] border-r-2 border-[#15121E] flex flex-col justify-between min-h-screen sticky top-0 h-screen px-5 py-8"
+      className="w-[240px] shrink-0 bg-[#F8F3E6] border-r-2 border-[#15121E] flex flex-col justify-between sticky top-0 h-screen self-start overflow-y-auto px-5 py-8"
     >
       <div>
         {/* Brand Wordmark + small playful geometric mark */}
