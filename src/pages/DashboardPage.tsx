@@ -25,6 +25,7 @@ import {
   ResultMarker,
   RupiahAmount,
 } from '../components/NeoPrimitives';
+import { RecommendationBasisPanel } from '../components/RecommendationBasisPanel';
 
 interface DashboardPageProps {
   onNavigate: (page: PageId) => void;
@@ -42,7 +43,7 @@ const getBudgetChipStyle = (tone: BudgetCategory['tone']) => {
 };
 
 export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
-  const [expandedRules, setExpandedRules] = useState<Record<string, boolean>>({});
+  const [expandedRuleId, setExpandedRuleId] = useState<string | null>(null);
 
   const cumulativeSeries = buildCumulativeSeries(
     TRANSACTIONS,
@@ -55,7 +56,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
   const remainingTarget = SAVINGS_GOAL.targetAmount - SAVINGS_GOAL.currentAmount;
 
   const toggleRuleDetail = (id: string) => {
-    setExpandedRules((prev) => ({ ...prev, [id]: !prev[id] }));
+    setExpandedRuleId((prev) => (prev === id ? null : id));
   };
 
   return (
@@ -467,12 +468,16 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-6 items-stretch">
+        <div
+          className={`grid grid-cols-3 gap-6 ${
+            expandedRuleId !== null ? 'items-start' : 'items-stretch'
+          }`}
+        >
           {topRecommendations.map((rec) => (
             <RecommendationCard
               key={rec.id}
               rec={rec}
-              isExpanded={Boolean(expandedRules[rec.id])}
+              isExpanded={expandedRuleId === rec.id}
               onToggle={() => toggleRuleDetail(rec.id)}
             />
           ))}
@@ -506,7 +511,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
   const isMedium = rec.priority === 'sedang';
 
   return (
-    <article className="neo-card bg-white p-6 flex flex-col h-full">
+    <article className="neo-card bg-white p-6 flex flex-col">
       <div>
         <div className="flex items-center justify-between gap-2 mb-4">
           <span
@@ -555,36 +560,7 @@ const RecommendationCard: React.FC<RecommendationCardProps> = ({
           />
         </button>
 
-        <div
-          className={`grid transition-all duration-200 ease-out ${
-            isExpanded ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'
-          }`}
-        >
-          <div className="overflow-hidden">
-            <div className="rounded-[14px] border-[1.5px] border-[#15121E] bg-[#F8F3E6] p-3.5 text-[12px] space-y-2.5">
-              <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#15121E]/15">
-                <span className="font-mono font-semibold text-[#15121E]">
-                  Aturan {rec.ruleCode}
-                </span>
-                <span className="font-semibold text-[#15121E]/80">{rec.resultType}</span>
-              </div>
-
-              <div className="space-y-2">
-                {rec.variables.map((v) => (
-                  <div key={v.name} className="space-y-0.5">
-                    <div className="flex items-baseline justify-between gap-2">
-                      <span className="font-semibold text-[#15121E]">{v.name}</span>
-                      <span className="font-bold text-[#15121E] tabular-nums">{v.value}</span>
-                    </div>
-                    <p className="text-[11px] text-[#15121E]/70 tabular-nums">
-                      Ambang: {v.threshold}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <RecommendationBasisPanel rec={rec} isExpanded={isExpanded} />
       </div>
     </article>
   );

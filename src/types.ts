@@ -91,7 +91,9 @@ export type RecommendationResultType = 'Perhitungan langsung' | 'Perkiraan basel
 export interface RuleVariable {
   name: string;
   value: string;
-  threshold: string;
+  valueLines?: string[];
+  isEstimate?: boolean;
+  details?: string[];
 }
 
 export interface RecommendationItem {

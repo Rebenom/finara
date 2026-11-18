@@ -136,3 +136,21 @@ test('Transaction filtering narrows results by category and day range', () => {
   });
   assert.equal(day10To15.length, 6);
 });
+
+test('Recommendation basis variables use Syarat/Rumus and estimate markers without Ambang', () => {
+  for (const rec of RECOMMENDATIONS) {
+    for (const v of rec.variables) {
+      assert.equal(v.name.includes('Ambang'), false);
+      for (const d of v.details ?? []) {
+        assert.equal(d.includes('Ambang'), false);
+      }
+      if (v.isEstimate) {
+        assert.equal(v.value.startsWith('≈ '), true);
+      }
+    }
+  }
+  assert.equal(RECOMMENDATIONS[0].variables[2].isEstimate, true);
+  assert.equal(RECOMMENDATIONS[1].variables[1].isEstimate, true);
+  assert.equal(RECOMMENDATIONS[2].variables.length, 4);
+});
+

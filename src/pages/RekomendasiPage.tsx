@@ -12,6 +12,7 @@ import {
 import { RECOMMENDATIONS } from '../data';
 import type { RecommendationPriority } from '../types';
 import { ResultMarker } from '../components/NeoPrimitives';
+import { RecommendationBasisPanel } from '../components/RecommendationBasisPanel';
 
 interface RekomendasiPageProps {
   aiExplanationEnabled: boolean;
@@ -180,7 +181,7 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
                     <ChevronDown
                       size={15}
                       strokeWidth={2.5}
-                      className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                      className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
                     />
                   </button>
 
@@ -217,25 +218,7 @@ export const RekomendasiPage: React.FC<RekomendasiPageProps> = ({
                   </div>
                 </div>
 
-                {isExpanded && (
-                  <div className="mt-4 rounded-[14px] border-[1.5px] border-[#15121E] bg-[#F8F3E6] p-4 text-[13px] space-y-2.5">
-                    <div className="flex items-center justify-between border-b border-[#15121E]/15 pb-2">
-                      <span className="font-mono font-bold">Kode aturan: {rec.ruleCode}</span>
-                      <span className="font-semibold">{rec.resultType}</span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-4 pt-1">
-                      {rec.variables.map((v) => (
-                        <div key={v.name}>
-                          <p className="text-[11px] font-semibold text-[#15121E]/70">{v.name}</p>
-                          <p className="font-bold text-[#15121E] tabular-nums">{v.value}</p>
-                          <p className="text-[11px] text-[#15121E]/70 tabular-nums">
-                            Ambang: {v.threshold}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <RecommendationBasisPanel rec={rec} isExpanded={isExpanded} />
               </article>
             );
           })}

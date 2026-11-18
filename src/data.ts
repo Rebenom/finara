@@ -360,19 +360,23 @@ export const RECOMMENDATIONS: RecommendationItem[] = [
     featuredOnDashboard: true,
     variables: [
       {
-        name: 'Realisasi kategori hiburan',
+        name: 'Realisasi hiburan dan jajan (Ek)',
         value: 'Rp300.000',
-        threshold: 'Anggaran Rp300.000 (100%)',
+        details: ['Syarat: Ek ≥ batas (Bk) Rp300.000, terpakai 100%.'],
       },
       {
-        name: 'Progres hari berjalan',
-        value: 'Hari ke-15 dari 30 (50%)',
-        threshold: 'Rasio ideal <= 50%',
+        name: 'Hari berjalan (t)',
+        value: '15 dari 30 hari (H)',
+        details: ['Syarat: t < H, bulan belum berakhir.'],
       },
       {
-        name: 'Proyeksi akhir bulan',
-        value: 'Rp600.000 jika laju berlanjut',
-        threshold: 'Batas maksimal Rp300.000',
+        name: 'Proyeksi akhir bulan (Proyk)',
+        value: '≈ Rp600.000',
+        isEstimate: true,
+        details: [
+          'Rumus: Ek ÷ t × H = 300.000 ÷ 15 × 30.',
+          'Keterangan: pembanding, bukan syarat pemicu.',
+        ],
       },
     ],
     aiExplanation:
@@ -390,19 +394,22 @@ export const RECOMMENDATIONS: RecommendationItem[] = [
     featuredOnDashboard: true,
     variables: [
       {
-        name: 'Laju makan saat ini',
-        value: 'Rp40.000 / hari',
-        threshold: 'Batas aman Rp26.700 / hari',
+        name: 'Realisasi makan dan minum (Ek)',
+        value: 'Rp600.000',
+        details: ['Syarat: Ek < batas (Bk) Rp1.000.000.'],
       },
       {
-        name: 'Realisasi hari ke-15',
-        value: 'Rp600.000 (60%)',
-        threshold: 'Patokan hari ke-15 Rp500.000 (50%)',
+        name: 'Proyeksi akhir bulan (Proyk)',
+        value: '≈ Rp1.200.000',
+        isEstimate: true,
+        details: ['Syarat: Proyk > Bk.', 'Rumus: 600.000 ÷ 15 × 30.'],
       },
       {
-        name: 'Perkiraan akhir bulan',
-        value: 'Rp1.200.000',
-        threshold: 'Anggaran Rp1.000.000 (lewat Rp200.000)',
+        name: 'Batas harian yang aman',
+        value: 'Rp26.700',
+        details: [
+          'Rumus: (Bk − Ek) ÷ (H − t) = 400.000 ÷ 15. Laju sekarang Rp40.000 per hari.',
+        ],
       },
     ],
     aiExplanation:
@@ -420,19 +427,30 @@ export const RECOMMENDATIONS: RecommendationItem[] = [
     featuredOnDashboard: true,
     variables: [
       {
-        name: 'Perlu disetor per bulan',
-        value: 'Rp600.000 / bulan',
-        threshold: 'Sisa Rp3.300.000 dalam 5,5 bulan',
+        name: 'Kebutuhan setoran (KS)',
+        value: 'Rp600.000 per bulan',
+        details: ['Rumus: (6.000.000 − 2.400.000) ÷ 6.'],
       },
       {
-        name: 'Kapasitas menabung baseline',
-        value: 'Rp400.000 / bulan',
-        threshold: 'Selisih kurang Rp200.000 / bulan',
+        name: 'Kapasitas menabung (KM)',
+        value: '≈ Rp400.000',
+        isEstimate: true,
       },
       {
-        name: 'Progres tabungan saat ini',
-        value: 'Rp2.700.000 (45%)',
-        threshold: 'Target Rp6.000.000 (April 2027)',
+        name: 'Kekurangan (KK)',
+        value: '≈ Rp200.000',
+        isEstimate: true,
+        details: ['Syarat: KK > 0.', 'Rumus: KS − KM.'],
+      },
+      {
+        name: 'Alternatif',
+        value:
+          'tambahan hemat Rp200.000 per bulan; tenggat minimum 9 bulan = ⌈3.600.000 ÷ 400.000⌉; nominal maksimum Rp4.800.000 = 2.400.000 + 400.000 × 6.',
+        valueLines: [
+          'tambahan hemat Rp200.000 per bulan;',
+          'tenggat minimum 9 bulan = ⌈3.600.000 ÷ 400.000⌉;',
+          'nominal maksimum Rp4.800.000 = 2.400.000 + 400.000 × 6.',
+        ],
       },
     ],
     aiExplanation:
